@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>puhipuhi</title>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: black;
+  }
+
+  video {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: fill; /* stretch is OK */
+  }
+</style>
+</head>
+
+<body>
+
+<video id="puhi" muted playsinline autoplay>
+  <source src="https://images-ext-1.discordapp.net/external/uPeXA8P9eGPp7LZg6M-ylLuMetkDnFCC0xCQmH4w4Xo/https/media.tenor.com/buubTYXV0fkAAAPo/botan-clannad.mp4" type="video/mp4">
+</video>
+
+<script>
+  const video = document.getElementById("puhi");
+
+  // Very fast
+  video.playbackRate = 3.5;
+
+  // HARD infinite loop (no reliance on loop attribute)
+  function forceLoop() {
+    if (video.currentTime >= video.duration - 0.05) {
+      video.currentTime = 0;
+      video.play();
+    }
+    requestAnimationFrame(forceLoop);
+  }
+
+  video.addEventListener("loadedmetadata", () => {
+    video.play();
+    forceLoop();
+  });
+
+  // Resume instantly if tab loses focus
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) {
+      video.play();
+    }
+  });
+</script>
+
+</body>
+</html>
