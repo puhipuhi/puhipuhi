@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>puhipuhi</title>
+
+<style>
+  body {
+    margin: 0;
+    background: black;
+    overflow-y: auto;
+  }
+
+  .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 120px);
+    gap: 6px;
+    padding: 6px;
+  }
+
+  video {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    pointer-events: none;
+  }
+</style>
+</head>
+
+<body>
+  <div class="container" id="container"></div>
+
+<script>
+  const container = document.getElementById("container");
+  const VIDEO_SRC = "https://images-ext-1.discordapp.net/external/uPeXA8P9eGPp7LZg6M-ylLuMetkDnFCC0xCQmH4w4Xo/https/media.tenor.com/buubTYXV0fkAAAPo/botan-clannad.mp4";
+
+  function addVideos(count = 50) {
+    for (let i = 0; i < count; i++) {
+      const video = document.createElement("video");
+      video.src = VIDEO_SRC;
+      video.autoplay = true;
+      video.loop = true;
+      video.muted = true;
+      video.playsInline = true;
+      container.appendChild(video);
+    }
+  }
+
+  addVideos(100);
+
+  window.addEventListener("scroll", () => {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 800) {
+      addVideos(50);
+    }
+  });
+</script>
+</body>
+</html>
